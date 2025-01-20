@@ -9,6 +9,14 @@
 using namespace std;
 HANDLE hConsoleOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
+void output_time(long long time)
+{
+	wcout << time / 60'000 << L" min & " << (time % 60'000) / 1000;
+	wstring decimal = to_wstring((time % 1000) / 10); 
+	if (decimal.size() == 1) decimal = L"0" + decimal;
+	wcout << L'.' << decimal << L" sec";
+}
+
 int main()
 {
 	bool start{ true };
@@ -49,8 +57,7 @@ int main()
 		}
 		if (Exit) break;
 
-		wcout << time / 60'000 << L" min & " << (time % 60'000) / 1000;
-		wcout << L'.' << (time % 1000) / 10 << L" sec";
+		output_time(time);
 		Sleep(10);
 	}
 
@@ -79,8 +86,7 @@ int main()
 			SetConsoleTextAttribute(hConsoleOut, 4);
 		else SetConsoleTextAttribute(hConsoleOut, 6);
 
-		wcout << time / 60'000 << L" min & " << (time % 60'000) / 1000;
-		wcout << L'.' << (time % 1000) / 10 << L" sec";;
+		output_time(time);
 		SetConsoleTextAttribute(hConsoleOut, 15);
 	}
 
